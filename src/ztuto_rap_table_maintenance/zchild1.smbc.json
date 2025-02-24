@@ -1,0 +1,18 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "#",
+    "originalLanguage": "en"
+  },
+  "serviceConfiguration": {
+    "serviceBinding": "ZUI_CHILD1_O4",
+    "serviceName": "ZUI_CHILD1_O4",
+    "serviceVersion": "0001",
+    "rootEntitySet": "Child1All",
+    "name": "child1",
+    "skipRootEntity": true
+  },
+  "appConfiguration": {
+    "listReport": {}
+  }
+}

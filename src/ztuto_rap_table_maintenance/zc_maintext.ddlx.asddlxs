@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'MainText', 
+    typeNamePlural: 'MainTexts', 
+    title: {
+      type: #STANDARD, 
+      label: 'Main Text', 
+      value: 'Langu'
+    }
+  }
+}
+annotate view ZC_MainText with
+{
+  @UI.facet: [ {
+    id: 'ZI_MainText', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Main Text', 
+    position: 1 
+  } ]
+  @UI.identification: [ {
+    position: 1 , 
+    label: 'Langu'
+  } ]
+  @UI.lineItem: [ {
+    position: 1 , 
+    label: 'Langu'
+  } ]
+  Langu;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Description;
+}

@@ -1,0 +1,131 @@
+managed with additional save implementation in class ZBP_I_MAIN_S unique;
+strict;
+with draft;
+
+define behavior for ZI_Main_S alias MainAll
+draft table ztuttable1_d_s
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master ( global )
+
+{
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _Main { create ( features : instance ); with draft; }
+}
+
+define behavior for ZI_Main alias Main
+persistent table ztuttable1
+draft table ztuttable1_d
+etag master LocalLastChangedAt
+lock dependent by _MainAll
+authorization dependent by _MainAll
+
+{
+  field ( mandatory : create )
+  Id;
+
+  field ( readonly )
+  SingletonID;
+
+  field ( readonly : update )
+  Id;
+
+
+  update ( features : global );
+  delete ( features : global );
+
+  mapping for ZTUTTABLE1
+  {
+    Id = ID;
+    Field1 = FIELD1;
+    Field2 = FIELD2;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MainAll { with draft; }
+  association _MainText { create ( features : global ); with draft; }
+  association _Child1 { create ( features : global ); with draft; }
+
+  validation ValidateRecordChanges on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}
+
+define behavior for ZI_MainText alias MainText
+persistent table ztuttable_t
+draft table ztuttable_t_d
+etag master LocalLastChangedAt
+lock dependent by _MainAll
+authorization dependent by _MainAll
+
+{
+  field ( mandatory : create )
+  Langu;
+
+  field ( readonly )
+  SingletonID,
+  Id;
+
+  field ( readonly : update )
+  Langu;
+
+
+  update ( features : global );
+  delete ( features : global );
+
+  mapping for ZTUTTABLE_T
+  {
+    Langu = LANGU;
+    Id = ID;
+    Description = DESCRIPTION;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MainAll { with draft; }
+  association _Main { with draft; }
+
+  validation ValidateRecordChanges on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}
+
+define behavior for ZI_Child1 alias Child1
+persistent table ztuttable2
+draft table ztuttable2_d
+etag master LocalLastChangedAt
+lock dependent by _MainAll
+authorization dependent by _MainAll
+
+{
+
+
+  field ( readonly )
+  SingletonID,
+  Id, id2;
+
+
+  update ( features : global );
+  delete ( features : global );
+
+  mapping for ZTUTTABLE2
+  {
+    Id = ID;
+    Id2 = ID2;
+    Description = DESCRIPTION;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _MainAll { with draft; }
+  association _Main { with draft; }
+
+  validation ValidateRecordChanges on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

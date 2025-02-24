@@ -1,0 +1,71 @@
+managed implementation in class ZRAP100_BP_TRAVELTP_000 unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZRAP100_R_TRAVELTP_000 alias Travel
+persistent table zrap100_atrav000
+draft table zrap100_dtrav000
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+early numbering
+{
+
+  field ( readonly )
+  TravelID,
+  CreatedAt,
+  CreatedBy,
+  LastChangedAt,
+  LocalLastChangedAt,
+  OverallStatus,
+  LocalLastChangedBy;
+
+  field ( mandatory )
+  CustomerID,
+  BeginDate,
+  EndDate;
+
+  validation validateCustomer on save { create; update; field CustomerID; }
+  validation validateDates on save { create; update; field BeginDate, EndDate; }
+  action (features : instance) deductDiscount parameter /dmo/a_travel_discount  result [1] $self;
+  action (features : instance) acceptTravel result [1] $self;
+  action (features : instance) rejectTravel result [1] $self;
+  factory action copyTravel [1];
+
+  create;
+  update (features : instance);
+  delete (features : instance);
+
+  determination setStatusToOpen on modify { create; }
+
+  draft action ( features : instance) Edit ;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateCustomer;
+    validation validateDates; }
+
+  mapping for ZRAP100_ATRAV000
+  {
+    TravelID = TRAVEL_ID;
+    AgencyID = AGENCY_ID;
+    CustomerID = CUSTOMER_ID;
+    BeginDate = BEGIN_DATE;
+    EndDate = END_DATE;
+    BookingFee = BOOKING_FEE;
+    TotalPrice = TOTAL_PRICE;
+    CurrencyCode = CURRENCY_CODE;
+    Description = DESCRIPTION;
+    OverallStatus = OVERALL_STATUS;
+    Attachment = ATTACHMENT;
+    MimeType = MIME_TYPE;
+    FileName = FILE_NAME;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+    LastChangedAt = LAST_CHANGED_AT;
+  }
+}

@@ -1,0 +1,6 @@
+define service ZUI_MAIN {
+  expose ZC_Main_S as MainAll;
+  expose ZC_Main as Main;
+  expose ZC_MainText as MainText;
+  expose ZC_Child1 as Child1;
+}

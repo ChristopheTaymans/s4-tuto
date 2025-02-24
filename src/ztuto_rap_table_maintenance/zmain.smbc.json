@@ -1,0 +1,32 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "#",
+    "originalLanguage": "en"
+  },
+  "serviceConfiguration": {
+    "serviceBinding": "ZUI_MAIN_O4",
+    "serviceName": "ZUI_MAIN_O4",
+    "serviceVersion": "0001",
+    "rootEntitySet": "MainAll",
+    "name": "Main",
+    "skipRootEntity": true
+  },
+  "appConfiguration": {
+    "listReport": {},
+    "objectPages": [
+      {
+        "entity": "Child1",
+        "tableType": "gridTable",
+        "creationModeName": "creationRow"
+      },
+      {
+        "entity": "Main",
+        "tableType": "gridTable",
+        "sectionLayout": "tabs",
+        "creationModeName": "creationRow",
+        "createAtEnd": true
+      }
+    ]
+  }
+}

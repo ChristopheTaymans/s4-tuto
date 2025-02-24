@@ -1,0 +1,51 @@
+projection implementation in class ZBP_C_MAIN_S unique;
+strict;
+use draft;
+
+define behavior for ZC_Main_S alias MainAll
+
+{
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+  use action SelectCustomizingTransptReq;
+
+  use association _Main { create ( augment ); with draft; }
+}
+
+define behavior for ZC_Main alias Main
+
+{
+  field ( modify )
+  Description;
+
+
+  use update ( augment );
+  use delete;
+
+  use association _MainAll { with draft; }
+  use association _MainText { create; with draft; }
+  use association _Child1 { create; with draft; }
+}
+
+define behavior for ZC_MainText alias MainText
+
+{
+  use update;
+  use delete;
+
+  use association _MainAll { with draft; }
+  use association _Main { with draft; }
+}
+
+define behavior for ZC_Child1 alias Child1
+
+{
+  use update;
+  use delete;
+
+  use association _MainAll { with draft; }
+  use association _Main { with draft; }
+}

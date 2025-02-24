@@ -1,0 +1,61 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Main', 
+    typeNamePlural: 'Mains', 
+    title: {
+      type: #STANDARD, 
+      label: 'Main', 
+      value: 'Id'
+    }
+  }
+}
+annotate view ZC_Main with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_Main', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Main', 
+    position: 1 
+  }, 
+  {
+    id: 'ZI_MainText', 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Main Text', 
+    position: 2 , 
+    targetElement: '_MainText'
+  } ]
+  Id;
+  
+  @UI.identification: [ {
+    position: 3 
+  } ]
+  @UI.lineItem: [ {
+    position: 3 
+  } ]
+  Field1;
+  
+  @UI.identification: [ {
+    position: 4 
+  } ]
+  @UI.lineItem: [ {
+    position: 4 
+  } ]
+  Field2;
+  
+  @UI.identification: [ {
+    hidden: true, 
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Description;
+}
